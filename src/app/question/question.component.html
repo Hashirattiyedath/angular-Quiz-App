@@ -7,19 +7,19 @@
             </div>
             <div class="quiz-header">
                 <h4>Angular & TypeScript</h4>
-                <span style="font-style: italic;">Welcome user</span>
+                <span style="font-style: italic;">Welcome {{name}}</span>
             </div>
         </div>
 
         <div class="d-flex justify-content-around py-3">
             <div class="score">
-                <h5>20 points</h5>
+                <h5>{{points}} points</h5>
             </div>
             <div class="question-remine">
-                <span style="font-style: italic;">Question 1 of 9</span>
+                <span style="font-style: italic;">Question {{currentQuestion + 1}} of {{questionList.length}}</span>
             </div>
             <div class="timer">
-                <h5>60 sec ⏰</h5>
+                <h5>{{counter}} sec ⏰</h5>
             </div>
         </div>
 
@@ -29,33 +29,23 @@
 
         <div class="question">
             <div class="card">
-                <h3>What is your name ?</h3>
+                <h3>{{questionList[currentQuestion]?.questionText}}</h3>
             </div>
         </div>
         <div class="options">
             <ol>
-                <li>
+                <li *ngFor="let question of questionList[currentQuestion]?.options">
                     <div class="card">
-                        Sashi
-                    </div>
-                </li>
-                <li>
-                    <div class="card">
-                        Sashi
-                    </div>
-                </li>
-                <li>
-                    <div class="card">
-                        Sashi
+                        {{question.text}}
                     </div>
                 </li>
             </ol>
         </div>
 
         <div class="d-flex justify-content-between">
-            <button class="btn"> <i class="fa fa-chevron-left fa-2x text-primary"></i> </button>
+            <button class="btn" [disabled]="currentQuestion == 0" (click)="previousQuestion()"> <i class="fa fa-chevron-left fa-2x text-primary"></i> </button>
             <button class="btn"> <i class="fa fa-refresh fa-2x text-primary"></i> </button>
-            <button class="btn"> <i class="fa fa-chevron-right fa-2x text-primary"></i> </button>
+            <button class="btn" [disabled]="currentQuestion + 1 == questionList.length" (click)="nextQuestion()"> <i class="fa fa-chevron-right fa-2x text-primary"></i> </button>
         </div>
     </div>
 </div>
